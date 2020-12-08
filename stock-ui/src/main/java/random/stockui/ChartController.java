@@ -7,8 +7,8 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
 import org.springframework.stereotype.Component;
+import random.stockclient.StockClient;
 import random.stockclient.StockPrice;
-import random.stockclient.WebClientStockClient;
 
 import java.util.function.Consumer;
 
@@ -21,10 +21,10 @@ public class ChartController {
 	@FXML
 	public LineChart<String, Double> chart;
 
-	private WebClientStockClient webClientStockClient;
+	private StockClient stockClient;
 
-	public ChartController(WebClientStockClient webClientStockClient) {
-		this.webClientStockClient = webClientStockClient;
+	public ChartController(StockClient stockClient) {
+		this.stockClient = stockClient;
 	}
 
 	@FXML
@@ -41,7 +41,7 @@ public class ChartController {
 
 	private PriceSubscriber getPriceSubscriber(String symbol) {
 		final PriceSubscriber priceSubscriber = new PriceSubscriber(symbol);
-		webClientStockClient.pricesFor(symbol).subscribe(priceSubscriber);
+		stockClient.pricesFor(symbol).subscribe(priceSubscriber);
 		return priceSubscriber;
 	}
 
