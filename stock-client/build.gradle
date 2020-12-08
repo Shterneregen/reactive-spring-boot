@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.4.0'
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
+	id "maven-publish"
 }
 
 group = 'random'
@@ -24,6 +25,22 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			artifact jar
+		}
+	}
+}
+
+bootJar {
+	mainClassName = 'NONE'
+}
+
+jar {
+	enabled = true
 }
 
 test {
